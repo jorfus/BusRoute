@@ -36,24 +36,33 @@ namespace BusRoute
                     foreach (BusStop busStop in TheBusStops)
                     {
                         if (busStop == null)
+                        {
+                            newBusStop = new BusStop(newColumn, newRow, Rand.Next(0, 3 + 1));
+                            TheBusStops[index] = newBusStop;
                             break;
+                        }
                         else
                         {
                             (existingColumn, existingRow) = busStop.GetPosition();
 
                             differenceColumn = newColumn - existingColumn;
-                            differenceRow = newColumn - existingRow;
+                            differenceRow = newRow - existingRow;
 
-                            if (!(differenceColumn < 9 && differenceColumn > -9 || differenceRow < 9 && differenceRow > -9))
+                            if (differenceColumn < -9 || differenceColumn > 9 || differenceRow < -9 || differenceRow > 9)
                                 positionConflict = false;
                             else
+                            {
+                                positionConflict = true;
                                 break;
+                            }
                         }
                     }
 
-                    newBusStop = new BusStop(newColumn, newRow, Rand.Next(0, 3 + 1));
-                    TheBusStops[index] = newBusStop;
-                    positionConflict = false;
+                    if (positionConflict == false)
+                    {
+                        newBusStop = new BusStop(newColumn, newRow, Rand.Next(0, 3 + 1));
+                        TheBusStops[index] = newBusStop;
+                    }
                 }
             }
         }

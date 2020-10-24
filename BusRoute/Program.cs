@@ -8,7 +8,7 @@ namespace BusRoute
     {
         static void Main(string[] args)
         {
-            RouteMap theMap = new RouteMap(30);
+            RouteMap theMap = new RouteMap(10);
 
             Console.WindowWidth = 200;
             Console.WindowHeight = 57;
@@ -45,7 +45,7 @@ namespace BusRoute
             while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape))
             {
                 Console.SetCursorPosition(0, 0);
-                theMap = new RouteMap(30);
+                theMap = new RouteMap(10);
                 
                 Console.Write(theMap.TheDrawnMap());
 
