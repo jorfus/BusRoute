@@ -6,14 +6,14 @@ namespace BusRoute
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            RouteMap theMap = new RouteMap(10);
-
+            RouteMap theRouteMap = new RouteMap();
+            
             Console.WindowWidth = 200;
             Console.WindowHeight = 57;
             
-            Console.Write(theMap.TheDrawnMap());
+            Console.Write(theRouteMap.TheDrawnMap());
 
             bool loop = true;
             while (loop)
@@ -23,11 +23,12 @@ namespace BusRoute
                 switch (input.Key)
                 {
                     case ConsoleKey.Enter:
-                        theMap = RunSim(theMap);
+                        Console.Clear();
+                        theRouteMap = theRouteMap.RunSim();
                         break;
                     case ConsoleKey.Tab:
-                        Console.WindowHeight = 57 + theMap.WindowBuffer;
-                        Console.Write(theMap);
+                        Console.WindowHeight = 57 + theRouteMap.WindowBuffer;
+                        Console.Write(theRouteMap);
                         break;
                     case ConsoleKey.Escape:
                         loop = false;
@@ -38,21 +39,6 @@ namespace BusRoute
             }
         }
 
-        static RouteMap RunSim(RouteMap theMap)
-        {
-            Console.Clear();
-            
-            while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape))
-            {
-                Console.SetCursorPosition(0, 0);
-                theMap = new RouteMap(10);
-                
-                Console.Write(theMap.TheDrawnMap());
-
-                Thread.Sleep(2000);
-            }
-
-            return theMap;
-        }
+        
     }
 }

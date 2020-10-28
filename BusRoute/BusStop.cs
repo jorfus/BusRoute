@@ -10,7 +10,7 @@ namespace BusRoute
         int Orientation { get; set; }
         string[] BusStopGraphic { get; set; } = new string[3];
         List<Passenger> Passengers { get; set; } = new List<Passenger>();
-        
+
         public BusStop(int column, int row, int orientation)
         {
             Position[1] = column;
@@ -51,13 +51,21 @@ namespace BusRoute
         {
             return (Position[1], Position[0]);
         }
+        public int[] GetPositionArray()
+        {
+            return Position;
+        }
+        public int GetOrientation()
+        {
+            return Orientation;
+        }
         public string[] GetBusStopGraphic()
         {
             return BusStopGraphic;
         }
         public override string ToString()
         {
-            return $"{Position[1]},{Position[0]}: {Orientation} |";
+            return $"{Position[1] + 1},{Position[0] + 1}: {Orientation + 1} | ";
         }
     }
 }

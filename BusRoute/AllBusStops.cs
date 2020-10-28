@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
-using HelperLibrary;
 
 namespace BusRoute
 {
     class AllBusStops
     {
-        BusStop[] TheBusStops { get; set; }
+        BusStop[] TheBusStopArray { get; set; } = new BusStop[10];
         Random Rand { get; set; } = new Random();
 
-        public AllBusStops(int stopsCount)
+        public AllBusStops()
         {
-            TheBusStops = new BusStop[stopsCount];
-
-            BusStop newBusStop;
-
             int newColumn;
             int newRow;
 
@@ -25,7 +23,7 @@ namespace BusRoute
             int differenceColumn;
             int differenceRow;
 
-            for (int index = 0; index < TheBusStops.Length; index++)
+            for (int index = 0; index < TheBusStopArray.Length; index++)
             {
                 bool positionConflict = true;
                 while (positionConflict)
@@ -33,12 +31,11 @@ namespace BusRoute
                     newColumn = Rand.Next(1, 198 + 1);
                     newRow = Rand.Next(1, 53 + 1);
 
-                    foreach (BusStop busStop in TheBusStops)
+                    foreach (BusStop busStop in TheBusStopArray)
                     {
                         if (busStop == null)
                         {
-                            newBusStop = new BusStop(newColumn, newRow, Rand.Next(0, 3 + 1));
-                            TheBusStops[index] = newBusStop;
+                            TheBusStopArray[index] = new BusStop(newColumn, newRow, Rand.Next(0, 3 + 1));
                             break;
                         }
                         else
@@ -59,24 +56,21 @@ namespace BusRoute
                     }
 
                     if (positionConflict == false)
-                    {
-                        newBusStop = new BusStop(newColumn, newRow, Rand.Next(0, 3 + 1));
-                        TheBusStops[index] = newBusStop;
-                    }
+                        TheBusStopArray[index] = new BusStop(newColumn, newRow, Rand.Next(0, 3 + 1));
                 }
             }
         }
- 
+
         public BusStop[] GetBusStops()
         {
-            return TheBusStops;
+            return TheBusStopArray;
         }
         public override string ToString()
         {
             string str = "";
 
-            foreach (BusStop busStop in TheBusStops)
-                str += $"{busStop}";
+            foreach (BusStop stop in TheBusStopArray)
+                str += stop;
 
             return str;
         }
