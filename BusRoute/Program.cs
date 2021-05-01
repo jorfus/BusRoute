@@ -8,37 +8,59 @@ namespace BusRoute
     {
         static void Main()
         {
-            RouteMap theRouteMap = new RouteMap();
-            
-            Console.WindowWidth = 200;
-            Console.WindowHeight = 57;
-            
-            Console.Write(theRouteMap.TheDrawnMap());
+            RouteMap aRouteMap = new RouteMap();
 
+            Console.WindowWidth = 200;
+            Console.WindowHeight = 56;
+            Console.Write(aRouteMap.PartialDraw());
+            
             bool loop = true;
             while (loop)
             {
-                ConsoleKeyInfo input = Console.ReadKey();
+                ConsoleKeyInfo input = Console.ReadKey(true);
 
                 switch (input.Key)
                 {
                     case ConsoleKey.Enter:
-                        Console.Clear();
-                        theRouteMap = theRouteMap.RunSim();
+                        RunSim();
                         break;
                     case ConsoleKey.Tab:
-                        Console.WindowHeight = 57 + theRouteMap.WindowBuffer;
-                        Console.Write(theRouteMap);
+                        if (MapInfo(aRouteMap).Key == ConsoleKey.Escape)
+                            loop = false;
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine(aRouteMap.PartialDraw());
+                        }
+                        break;
+                    case ConsoleKey.N:
+                        Console.Clear();
+                        aRouteMap = new RouteMap();
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write(aRouteMap.PartialDraw());
                         break;
                     case ConsoleKey.Escape:
                         loop = false;
                         break;
                     default:
-                        continue;
+                        break;
                 }
             }
         }
 
-        
+        static void RunSim()
+        {
+
+        }
+        static ConsoleKeyInfo MapInfo(RouteMap aRouteMap)
+        {
+            Console.Clear();
+            Console.Write(aRouteMap.FullDraw());
+            Console.Write(aRouteMap);
+
+            ConsoleKeyInfo input = Console.ReadKey();
+
+            return input;
+        }
     }
 }

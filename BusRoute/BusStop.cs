@@ -8,38 +8,39 @@ namespace BusRoute
     {
         int[] Position { get; set; } = new int[2];
         int Orientation { get; set; }
-        string[] BusStopGraphic { get; set; } = new string[3];
+        Bus ABus { get; set; }
         List<Passenger> Passengers { get; set; } = new List<Passenger>();
+        string[] BusStopGraphics { get; set; } = new string[3];
 
         public BusStop(int column, int row, int orientation)
         {
-            Position[1] = column;
-            Position[0] = row;
+            Position[0] = column;
+            Position[1] = row;
             Orientation = orientation;
 
-            for (int index = 0; index < BusStopGraphic.Length; index++)
+            for (int index = 0; index < BusStopGraphics.Length; index++)
             {
                 switch (Orientation)
                 {
                     case 0:
-                        BusStopGraphic[0] = "   ";
-                        BusStopGraphic[1] = "S S";
-                        BusStopGraphic[2] = "SSS";
+                        BusStopGraphics[0] = "   ";
+                        BusStopGraphics[1] = "S S";
+                        BusStopGraphics[2] = "SSS";
                         break;
                     case 1:
-                        BusStopGraphic[0] = "SS ";
-                        BusStopGraphic[1] = "S  ";
-                        BusStopGraphic[2] = "SS ";
+                        BusStopGraphics[0] = "SS ";
+                        BusStopGraphics[1] = "S  ";
+                        BusStopGraphics[2] = "SS ";
                         break;
                     case 2:
-                        BusStopGraphic[0] = "SSS";
-                        BusStopGraphic[1] = "S S";
-                        BusStopGraphic[2] = "   ";
+                        BusStopGraphics[0] = "SSS";
+                        BusStopGraphics[1] = "S S";
+                        BusStopGraphics[2] = "   ";
                         break;
                     case 3:
-                        BusStopGraphic[0] = " SS";
-                        BusStopGraphic[1] = "  S";
-                        BusStopGraphic[2] = " SS";
+                        BusStopGraphics[0] = " SS";
+                        BusStopGraphics[1] = "  S";
+                        BusStopGraphics[2] = " SS";
                         break;
                     default:
                         break;
@@ -47,11 +48,7 @@ namespace BusRoute
             }
         }
         
-        public (int, int) GetPosition()
-        {
-            return (Position[1], Position[0]);
-        }
-        public int[] GetPositionArray()
+        public int[] GetPosition()
         {
             return Position;
         }
@@ -59,13 +56,13 @@ namespace BusRoute
         {
             return Orientation;
         }
-        public string[] GetBusStopGraphic()
+        public string[] GetBusStopGraphics()
         {
-            return BusStopGraphic;
+            return BusStopGraphics;
         }
         public override string ToString()
         {
-            return $"{Position[1] + 1},{Position[0] + 1}: {Orientation + 1} | ";
+            return $"{Position[0] + 1},{Position[1] + 1}: {Orientation + 1} | ";
         }
     }
 }
